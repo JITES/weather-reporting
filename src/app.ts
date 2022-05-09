@@ -1,11 +1,10 @@
 import compression from 'compression';
-import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
 import { connect, set } from 'mongoose';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT } from '@config';
 import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
@@ -18,7 +17,7 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.env = 'development';
+    this.env = NODE_ENV || 'development';
     this.port = PORT || 3000;
 
     this.connectToDatabase();
@@ -49,7 +48,6 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));
-    this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
