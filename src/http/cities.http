@@ -1,0 +1,15 @@
+# baseURL
+@baseURL = http://localhost:3000
+
+###
+# GET /cities?lat={latitude}&lng={longitude}
+# List the available cities around the specified latitude/longitude within a radius of 10 kilometers
+GET {{ baseURL }}/cities?lat=49.48&lng=8.46
+
+### `GET /cities/{city_id}`
+# Retrieve the details for a city (by city_id) Example: http://localhost:8080/cities/2873891
+GET {{ baseURL }}/cities/2873891
+
+#### `GET /cities/{city_id}/weather`
+# Retrieve the weather data for a city (by city_id) Example: http://localhost:8080/cities/2873891/weather
+GET {{ baseURL }}/cities/2873891/weather
