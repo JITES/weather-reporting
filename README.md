@@ -41,7 +41,7 @@ db.cities.createIndex({
 });
 ```
 
-Run .env.development.local
+Add env file and add following values ```.env.development.local```
 ```
 # PORT
 PORT = 3000
