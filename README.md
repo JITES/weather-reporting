@@ -24,16 +24,16 @@ Step 1
     RANGE_KM=10
     ```
 Step 2 
-    - Make sure docker is running
-    - Go to the root directory and run the application using docker
+- Make sure docker is running
+- Go to the root directory and run the application using docker
     ```
     docker-compose up
     ```
 Step 3 - Data Migration
 
-    - To migrate the data, mongoimport is being used if that is not install then please install it using ``` brew install mongodb/brew/mongodb-database-tools ```
-    - Migrate data - run bash script to import the data ```sh ./setup/script/import.data.sh```
-    - Update the data and create geoSpatial index using following script
+- To migrate the data, mongoimport is being used if that is not install then please install it using ``` brew install mongodb/brew/mongodb-database-tools ```
+- Migrate data - run bash script to import the data ```sh ./setup/script/import.data.sh```
+- Update the data and create geoSpatial index using following script
 
     ```
     // switch to db
