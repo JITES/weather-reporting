@@ -3,15 +3,14 @@ import { City } from '@interfaces/city.interface';
 import cityModel from '@models/cities.model';
 import Http from '@/client/http';
 import dotenv from 'dotenv';
-import { isEmpty } from 'class-validator';
-import { AnyArray } from 'mongoose';
 dotenv.config();
 class CityService {
   public cities = cityModel;
   rangeKM = process.env.RANGE_KM || 10;
   radiusOfEarthInKM = 6371;
+
   public async findCityById(cityId: number): Promise<City> {
-    const city: City = await this.cities.findOne({ id: cityId }, { _id: false }).select('id name loc.coordinates');
+    const city: City = await this.cities.findOne({ id: cityId }, { id: 1, name: 1, 'loc.coordinates': 1, _id: 0 });
     if (!city) throw new HttpException(404, 'Not found');
     return city;
   }
@@ -35,9 +34,8 @@ class CityService {
               },
             },
           },
-          { _id: false },
+          { id: 1, name: 1, _id: false },
         )
-        .select('id name')
         .find(error => {
           if (error) console.log(error);
         });
@@ -47,7 +45,7 @@ class CityService {
     }
   }
 
-  private generateOpenWeatherAPIURL(city: City): string {
+  public generateOpenWeatherAPIURL(city: City): string {
     const apiKey: string = process.env.API_KEY;
     const uri: string = process.env.OPEN_WEATHER_API;
     // lat lng as per mapping during data migration coordinates array
