@@ -16,6 +16,6 @@ db.cities.find().forEach(function (city) {
     db.cities.update(city, point);
 });
 
-db.cities.ensureIndex({
+db.cities.createIndex({
     loc : "2dsphere"
 });
