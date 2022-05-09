@@ -7,6 +7,7 @@ A service that exposes an API implementing city details and weather details from
 Step 1
     Add env file and add following values ```.env.development.local```
     ```
+    #PORT
     PORT = 3000
 
     #DATABASE
