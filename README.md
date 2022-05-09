@@ -4,63 +4,63 @@
 A service that exposes an API implementing city details and weather details from openweathermap.org.
 
 ## Installation
-- Make sure docker is running
-- Go to the root directory and run the application using docker
-```
-docker-compose up
-```
-- To migrate the data, mongoimport is being used if that is not install then please install it using ``` brew install mongodb/brew/mongodb-database-tools ```
-- Migrate data - run bash script to import the data ```sh ./setup/script/import.data.sh```
-- Update the data and create geoSpatial index
+Step 1
+    Add env file and add following values ```.env.development.local```
+    ```
+    # PORT
+    PORT = 3000
 
-```
-// switch to db
-use Klarna
+    # DATABASE
+    DB_HOST = mongo
+    DB_PORT = 27017
+    DB_DATABASE = Klarna
 
-// the following command takes time so please wait it completes
+    # OPENWEATHER API 
+    API_KEY=cb256bb77b78d40748970f8bc6a5ed8d
+    OPEN_WEATHER_API=https://api.openweathermap.org/data/2.5/weather
 
-db.cities.find().forEach(function (city) {
-    var point = {
-        _id : city._id,
-        id:city.id,
-        name:city.name,
-        state:city.state,
-        country:city.country,
-        loc : {
-            type : "Point",
-            coordinates : [city.coord.lon, city.coord.lat]
-        }
-    };
-    db.cities.update(city, point);
-});
+    # RANGE for near by cities in KM
+    RANGE_KM=10
+    ```
+Step 2 
+    - Make sure docker is running
+    - Go to the root directory and run the application using docker
+    ```
+    docker-compose up
+    ```
+Step 3 - Data Migration
 
-// create the index
+    - To migrate the data, mongoimport is being used if that is not install then please install it using ``` brew install mongodb/brew/mongodb-database-tools ```
+    - Migrate data - run bash script to import the data ```sh ./setup/script/import.data.sh```
+    - Update the data and create geoSpatial index using following script
 
-db.cities.createIndex({
-    loc : "2dsphere"
-});
-```
+    ```
+    // switch to db
+    use Klarna
 
-Add env file and add following values ```.env.development.local```
-```
-# PORT
-PORT = 3000
+    // the following command takes time so please wait it completes
 
-# DATABASE
-DB_HOST = mongo
-DB_PORT = 27017
-DB_DATABASE = Klarna
+    db.cities.find().forEach(function (city) {
+        var point = {
+            _id : city._id,
+            id:city.id,
+            name:city.name,
+            state:city.state,
+            country:city.country,
+            loc : {
+                type : "Point",
+                coordinates : [city.coord.lon, city.coord.lat]
+            }
+        };
+        db.cities.update(city, point);
+    });
 
-# OPENWEATHER API 
-API_KEY=cb256bb77b78d40748970f8bc6a5ed8d
-OPEN_WEATHER_API=https://api.openweathermap.org/data/2.5/weather
+    // create the index
 
-# RANGE for near by cities in KM
-RANGE_KM=10
-
-```
-Now application is ready to use.
-
+    db.cities.createIndex({
+        loc : "2dsphere"
+    });
+    ```
 ### Test
 - Run ``` npm test ``` to execute test
 
