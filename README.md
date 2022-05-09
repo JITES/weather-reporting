@@ -7,19 +7,18 @@ A service that exposes an API implementing city details and weather details from
 Step 1
     Add env file and add following values ```.env.development.local```
     ```
-    # PORT
     PORT = 3000
 
-    # DATABASE
+    #DATABASE
     DB_HOST = mongo
     DB_PORT = 27017
     DB_DATABASE = Klarna
 
-    # OPENWEATHER API 
+    #OPENWEATHER API 
     API_KEY=cb256bb77b78d40748970f8bc6a5ed8d
     OPEN_WEATHER_API=https://api.openweathermap.org/data/2.5/weather
 
-    # RANGE for near by cities in KM
+    #RANGE for near by cities in KM
     RANGE_KM=10
     ```
 Step 2 
