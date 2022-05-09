@@ -54,7 +54,7 @@ Endpoint using insomnia
 - Make GET request - City weather - http://localhost:3000/cities/2873891/weather
 - Make GET request - Near by Cities - http://localhost:3000/cities?lat=49.48&lng=8.46
 ### Assumptions
-- User will a valid city id to get the city detail and weather to get the response
+- User will enter a valid city id to get the city detail and weather to get the response
 - User will enter a valid lat lng value to get near by cities within 10 km to get valid response
 
 ### About project
