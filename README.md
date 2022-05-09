@@ -15,6 +15,8 @@ docker-compose up
 ```
 use Klarna
 
+// the following command takes time so please wait it completes
+
 db.cities.find().forEach(function (city) {
     var point = {
         _id : city._id,
@@ -29,7 +31,7 @@ db.cities.find().forEach(function (city) {
     };
     db.cities.update(city, point);
 });
-
+// create the index
 db.cities.createIndex({
     loc : "2dsphere"
 });
